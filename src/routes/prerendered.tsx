@@ -1,9 +1,8 @@
 import { Await, createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { getGreeting, getNavTime } from "../server_functions";
-
-export const Route = createFileRoute("/")({
-	component: Home,
+export const Route = createFileRoute("/prerendered")({
+	component: PreRendered,
 	loader: async () => {
 		const navTime = await getNavTime();
 		return {
@@ -13,13 +12,11 @@ export const Route = createFileRoute("/")({
 	},
 });
 
-function Home() {
+function PreRendered() {
 	const state = Route.useLoaderData();
-	console.log("Loader data:", state);
-
 	return (
 		<main className="p-8">
-			<h1>Home</h1>
+			<h1>Prerendered</h1>
 			<Link to="/prerendered">Go to Prerendered page</Link>
 			<p>Navigation time: {state.navTime}</p>
 			<Suspense fallback={<span aria-busy="true" />}>
