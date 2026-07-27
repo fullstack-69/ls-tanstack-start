@@ -1,5 +1,6 @@
-import { type Todo } from "@types/todo";
 import { type FC, useEffect, useState } from "react";
+import { actionDeleteTodo, actionGetTodos } from "@/actions";
+import type { Todo } from "@/types/todo";
 
 const TodoReact: FC = () => {
 	const [todos, setTodos] = useState<Todo[]>([]);
@@ -7,7 +8,7 @@ const TodoReact: FC = () => {
 
 	const fetchTodos = async () => {
 		setLoading(true);
-		const { data, error } = await actions.getTodos();
+		const { data, error } = await actionGetTodos();
 		if (error) {
 			console.error("Error fetching todos:", error);
 			return;
@@ -102,7 +103,7 @@ const ButtonDelete: FC<ButtonDeleteProps> = ({
 }) => {
 	async function handleClick() {
 		setLoading(true);
-		const { data, error } = await actions.deleteTodo({ id: todo.id });
+		const { data, error } = await actionDeleteTodo({ id: todo.id });
 		setLoading(false);
 		if (error) {
 			console.error("Error deleting todo:", error);
