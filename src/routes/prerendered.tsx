@@ -1,6 +1,6 @@
 import { Await, createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
-import { getGreeting, getNavTime } from "../server_functions";
+import { getGreeting, getNavTime } from "../actions";
 export const Route = createFileRoute("/prerendered")({
 	component: PreRendered,
 	loader: async () => {
