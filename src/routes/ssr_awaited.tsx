@@ -4,8 +4,8 @@ import Nav from "@/components/Nav";
 import Todo from "@/components/Todo";
 import { getGreeting, getNavTime } from "../actions";
 
-export const Route = createFileRoute("/prerendered")({
-	component: PreRendered,
+export const Route = createFileRoute("/ssr_awaited")({
+	component: SSRAwaited,
 	loader: async () => {
 		const nav = await getNavTime();
 		const greeting = await getGreeting();
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/prerendered")({
 	},
 });
 
-function PreRendered() {
+function SSRAwaited() {
 	const state = Route.useLoaderData();
 	console.log("Loader data:", state);
 

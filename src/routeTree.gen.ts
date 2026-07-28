@@ -10,43 +10,69 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PrerenderedRouteImport } from './routes/prerendered'
+import { Route as Ssr_awaitedRouteImport } from './routes/ssr_awaited'
+import { Route as Ssr_awaited_prerenderedRouteImport } from './routes/ssr_awaited_prerendered'
+import { Route as Ssr_prerenderedRouteImport } from './routes/ssr_prerendered'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrerenderedRoute = PrerenderedRouteImport.update({
-  id: '/prerendered',
-  path: '/prerendered',
+const Ssr_awaitedRoute = Ssr_awaitedRouteImport.update({
+  id: '/ssr_awaited',
+  path: '/ssr_awaited',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Ssr_awaited_prerenderedRoute = Ssr_awaited_prerenderedRouteImport.update({
+  id: '/ssr_awaited_prerendered',
+  path: '/ssr_awaited_prerendered',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Ssr_prerenderedRoute = Ssr_prerenderedRouteImport.update({
+  id: '/ssr_prerendered',
+  path: '/ssr_prerendered',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/prerendered': typeof PrerenderedRoute
+  '/ssr_awaited': typeof Ssr_awaitedRoute
+  '/ssr_awaited_prerendered': typeof Ssr_awaited_prerenderedRoute
+  '/ssr_prerendered': typeof Ssr_prerenderedRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/prerendered': typeof PrerenderedRoute
+  '/ssr_awaited': typeof Ssr_awaitedRoute
+  '/ssr_awaited_prerendered': typeof Ssr_awaited_prerenderedRoute
+  '/ssr_prerendered': typeof Ssr_prerenderedRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/prerendered': typeof PrerenderedRoute
+  '/ssr_awaited': typeof Ssr_awaitedRoute
+  '/ssr_awaited_prerendered': typeof Ssr_awaited_prerenderedRoute
+  '/ssr_prerendered': typeof Ssr_prerenderedRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/prerendered'
+  fullPaths:
+    '/' | '/ssr_awaited' | '/ssr_awaited_prerendered' | '/ssr_prerendered'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/prerendered'
-  id: '__root__' | '/' | '/prerendered'
+  to: '/' | '/ssr_awaited' | '/ssr_awaited_prerendered' | '/ssr_prerendered'
+  id:
+    | '__root__'
+    | '/'
+    | '/ssr_awaited'
+    | '/ssr_awaited_prerendered'
+    | '/ssr_prerendered'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  PrerenderedRoute: typeof PrerenderedRoute
+  Ssr_awaitedRoute: typeof Ssr_awaitedRoute
+  Ssr_awaited_prerenderedRoute: typeof Ssr_awaited_prerenderedRoute
+  Ssr_prerenderedRoute: typeof Ssr_prerenderedRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,11 +84,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/prerendered': {
-      id: '/prerendered'
-      path: '/prerendered'
-      fullPath: '/prerendered'
-      preLoaderRoute: typeof PrerenderedRouteImport
+    '/ssr_awaited': {
+      id: '/ssr_awaited'
+      path: '/ssr_awaited'
+      fullPath: '/ssr_awaited'
+      preLoaderRoute: typeof Ssr_awaitedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ssr_awaited_prerendered': {
+      id: '/ssr_awaited_prerendered'
+      path: '/ssr_awaited_prerendered'
+      fullPath: '/ssr_awaited_prerendered'
+      preLoaderRoute: typeof Ssr_awaited_prerenderedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ssr_prerendered': {
+      id: '/ssr_prerendered'
+      path: '/ssr_prerendered'
+      fullPath: '/ssr_prerendered'
+      preLoaderRoute: typeof Ssr_prerenderedRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -70,7 +110,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  PrerenderedRoute: PrerenderedRoute,
+  Ssr_awaitedRoute: Ssr_awaitedRoute,
+  Ssr_awaited_prerenderedRoute: Ssr_awaited_prerenderedRoute,
+  Ssr_prerenderedRoute: Ssr_prerenderedRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
