@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import type { FC } from "react";
 
 interface NavProps {
@@ -6,6 +6,7 @@ interface NavProps {
 }
 
 const Nav: FC<NavProps> = ({ timeStr }) => {
+	const location = useLocation();
 	return (
 		<nav>
 			<ul>
@@ -15,12 +16,21 @@ const Nav: FC<NavProps> = ({ timeStr }) => {
 					</Link>
 				</li>
 			</ul>
+
 			<ul>
-				<li>
-					<Link to="/prerendered" aria-label="Go to Prerendered page">
-						Prerendered
-					</Link>
-				</li>
+				{location.pathname === "/" ? (
+					<li>
+						<Link to="/prerendered" aria-label="Go to Prerendered page">
+							Go to Prerendered
+						</Link>
+					</li>
+				) : (
+					<li>
+						<Link to="/" aria-label="Go to Home page">
+							Go to Home
+						</Link>
+					</li>
+				)}
 				<li>
 					<Link to="." aria-label="Generated at: {timeStr}">
 						Generated at: {timeStr}
