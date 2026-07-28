@@ -1,9 +1,9 @@
-import { deleteTodo, getTodos } from "@db/index";
 import { createServerFn } from "@tanstack/react-start";
 import { getRequestHeaders } from "@tanstack/react-start/server";
 import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions"; // Need to install manually due to experimental nature of the package.
 import { UAParser } from "ua-parser-js";
 import { z } from "zod";
+import { deleteTodo, getTodos } from "@/db";
 
 export const getNavTime = createServerFn({ method: "GET" })
 	.middleware([staticFunctionMiddleware])

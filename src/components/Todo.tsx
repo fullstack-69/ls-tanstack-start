@@ -1,3 +1,4 @@
+import { useServerFn } from "@tanstack/react-start";
 import { type FC, useEffect, useState } from "react";
 import { actionDeleteTodo, actionGetTodos } from "@/actions";
 import type { Todo } from "@/types/todo";
@@ -6,17 +7,21 @@ const TodoReact: FC = () => {
 	const [todos, setTodos] = useState<Todo[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 
+	const getTodos = useServerFn(actionGetTodos);
+
 	const fetchTodos = async () => {
 		setLoading(true);
-		const { data, error } = await actionGetTodos();
-		if (error) {
+		try {
+			const data = await getTodos();
+			setTodos(data);
+			setLoading(false);
+		} catch (error) {
 			console.error("Error fetching todos:", error);
 			return;
 		}
-		setTodos(data);
-		setLoading(false);
 	};
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: fetchTodos is defined in component scope
 	useEffect(() => {
 		fetchTodos();
 	}, []);
@@ -101,13 +106,15 @@ const ButtonDelete: FC<ButtonDeleteProps> = ({
 	setLoading,
 	loading,
 }) => {
+	const deleteTodo = useServerFn(actionDeleteTodo);
 	async function handleClick() {
 		setLoading(true);
-		const { data, error } = await actionDeleteTodo({ id: todo.id });
-		setLoading(false);
-		if (error) {
+		try {
+			await deleteTodo({ data: { id: todo.id } });
+		} catch (error) {
 			console.error("Error deleting todo:", error);
-			return;
+		} finally {
+			setLoading(false);
 		}
 		refetch();
 	}
@@ -115,6 +122,7 @@ const ButtonDelete: FC<ButtonDeleteProps> = ({
 	return loading ? (
 		<div style={{ cursor: "not-allowed" }}>🗑️</div>
 	) : (
+		// biome-ignore lint: keep same code style with other projects
 		<div onClick={handleClick} style={{ cursor: "pointer" }}>
 			🗑️
 		</div>

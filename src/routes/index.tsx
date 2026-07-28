@@ -1,5 +1,6 @@
 import { Await, createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
+import Todo from "@/components/Todo";
 import { getGreeting, getNavTime } from "../actions";
 
 export const Route = createFileRoute("/")({
@@ -31,6 +32,7 @@ function Home() {
 					)}
 				</Await>
 			</Suspense>
+			<Todo />
 		</main>
 	);
 }
