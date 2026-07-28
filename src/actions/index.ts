@@ -7,15 +7,19 @@ import { deleteTodo, getTodos } from "@/db";
 
 export const getNavTime = createServerFn({ method: "GET" })
 	.middleware([staticFunctionMiddleware])
-	.handler(async () => new Date().toLocaleTimeString());
+	.handler(async () => {
+		return {
+			timeStr: new Date().toLocaleTimeString(),
+		};
+	});
 
 export const getGreeting = createServerFn({ method: "GET" }).handler(
 	async () => {
 		const header = getRequestHeaders();
 		const ua = header.get("user-agent") ?? "";
 		return {
-			browser: new UAParser(ua).getResult().browser.name,
-			time: new Date().toLocaleTimeString(),
+			browser: new UAParser(ua).getResult().browser.name || "Unknown",
+			timeStr: new Date().toLocaleTimeString(),
 		};
 	},
 );
