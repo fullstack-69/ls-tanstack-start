@@ -14,7 +14,8 @@
     "format": "biome format",
     "lint": "biome lint",
     "check": "biome check",
-    "db:reset": "rimraf app.db && vite-node src/db/seeder.ts"
+    "db:reset": "rimraf app.db && vite-node src/db/seeder.ts",
+    "cdn:reset": "docker compose exec cdn-edge sh -c \"rm -rf /var/cache/nginx/*\""
   },
   "dependencies": {
     "@libsql/client": "^0.17.4",

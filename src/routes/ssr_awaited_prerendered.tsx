@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Await, createFileRoute } from "@tanstack/react-router";
+import { Suspense } from "react";
 import Greeting from "@/components/Greeting";
 import Nav from "@/components/Nav";
 import Todo from "@/components/Todo";
@@ -8,10 +9,10 @@ export const Route = createFileRoute("/ssr_awaited_prerendered")({
 	component: SSRAwaitedPrerendered,
 	loader: async () => {
 		const nav = await getNavTime();
-		const greeting = await getGreeting();
+		const greetingPromise = getGreeting();
 		return {
 			nav: nav,
-			greeting: greeting,
+			greetingPromise: greetingPromise,
 		};
 	},
 });
@@ -23,10 +24,19 @@ function SSRAwaitedPrerendered() {
 	return (
 		<main className="container">
 			<Nav timeStr={state.nav.timeStr} />
-			<Greeting
-				browser={state.greeting.browser}
-				timeStr={state.greeting.timeStr}
-			/>
+			<Suspense
+				fallback={
+					<p>
+						<span aria-busy="true"></span>
+					</p>
+				}
+			>
+				<Await promise={state.greetingPromise}>
+					{(greeting) => (
+						<Greeting browser={greeting.browser} timeStr={greeting.timeStr} />
+					)}
+				</Await>
+			</Suspense>
 			<Todo />
 		</main>
 	);

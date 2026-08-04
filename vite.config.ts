@@ -29,7 +29,10 @@ const config = defineConfig({
 				crawlLinks: true,
 
 				// Filter function takes the page object and returns whether it should prerender
-				filter: ({ path }) => !path.startsWith("/do-not-render-me"),
+				filter: ({ path }) => {
+					const prerender_list = ["/ssr_prerendered", "/ssr_awaited_prerendered"];	
+					return prerender_list.includes(path) ;
+				},
 
 				// Number of times to retry a failed prerender job
 				retryCount: 2,
@@ -52,14 +55,14 @@ const config = defineConfig({
 			// Note: When autoStaticPathsDiscovery is enabled (default), discovered static
 			// routes will be merged with the pages specified below
 			pages: [
-				{
-					path: "/",
-					prerender: { enabled: false },
-				},
-				{
-					path: "/prerendered",
-					prerender: { enabled: true },
-				},
+				// {
+				// 	path: "/",
+				// 	prerender: { enabled: false },
+				// },
+				// {
+				// 	path: "/prerendered",
+				// 	prerender: { enabled: true },
+				// },
 			],
 		}),
 		viteReact(),
