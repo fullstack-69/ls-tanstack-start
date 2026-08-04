@@ -56,7 +56,7 @@ const Nav: FC<NavProps> = ({ timeStr }) => {
 					</Link>
 				</li>
 				<li>
-					<a href="." aria-label="Generated at: {timeStr}">
+					<a href="#NA" aria-label="Generated at: {timeStr}">
 						Generated at: {timeStr}
 					</a>
 				</li>
