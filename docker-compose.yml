@@ -17,5 +17,5 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - ./.output/public:/usr/share/nginx/html:ro
+      - ./.output/public:/var/www/app:ro
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
