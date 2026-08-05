@@ -37,7 +37,8 @@ const Nav: FC<NavProps> = ({ timeStr }) => {
 						SSR Prerendered
 					</Link>
 				</li>
-				<li>
+				{/* Remove this link because it might confuses students */}
+				{/* <li>
 					<Link
 						to="/ssr_awaited"
 						aria-label="SSR Awaited"
@@ -54,7 +55,7 @@ const Nav: FC<NavProps> = ({ timeStr }) => {
 					>
 						SSR Awaited Prerendered
 					</Link>
-				</li>
+				</li> */}
 				<li>
 					<a href="#NA" aria-label="Generated at: {timeStr}">
 						Generated at: {timeStr}
