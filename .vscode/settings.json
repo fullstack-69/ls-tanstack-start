@@ -58,5 +58,9 @@
 		"titleBar.inactiveBackground": "#f37a8099",
 		"titleBar.inactiveForeground": "#15202b99"
 	},
-	"peacock.color": "#f37a80"
+	"peacock.color": "#f37a80",
+	"workbench.editorAssociations": {
+		"*.md": "default",
+		"*.markdown": "default"
+	}
 }
