@@ -18,7 +18,6 @@ export const Route = createFileRoute("/ssr_prerendered")({
 
 function SSRPrerendered() {
 	const state = Route.useLoaderData();
-	console.log("Loader data:", state);
 
 	return (
 		<main className="container">

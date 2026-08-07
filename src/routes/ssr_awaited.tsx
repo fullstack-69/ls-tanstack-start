@@ -19,7 +19,6 @@ export const Route = createFileRoute("/ssr_awaited")({
 
 function SSRAwaited() {
 	const state = Route.useLoaderData();
-	console.log("Loader data:", state);
 
 	return (
 		<main className="container">

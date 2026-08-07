@@ -18,7 +18,6 @@ export const Route = createFileRoute("/")({
 
 function Home() {
 	const state = Route.useLoaderData();
-	console.log("Loader data:", state);
 
 	return (
 		<main className="container">
